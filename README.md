@@ -37,8 +37,37 @@ Open a browser and navigate to http://127.0.0.1:8000 (or the assigned port).
 
 ## PROGRAM:
 
+from http.server import HTTPServer, BaseHTTPRequestHandler   
+
+content = '''    
+<!doctype html>   
+<html>      
+<head>                         
+<title> My Web Server</title>       
+</head>  
+<body>              
+<h1>Welcome</h1>       
+</body>         
+</html>'''           
+
+class MyServer(BaseHTTPRequestHandler):         
+    def do_GET(self):                           
+        print("Get request received...")         
+        self.send_response(200)                        
+        self.send_header("content-type", "text/html")                 
+        self.end_headers()                    
+        self.wfile.write(content.encode())             
+                              
+print("This is my webserver")            
+server_address =('',8000)                     
+httpd = HTTPServer(server_address,MyServer)       
+httpd.serve_forever()      
+    
 
 ## OUTPUT:
+
+<img width="1274" height="646" alt="Screenshot 2025-08-25 210157" src="https://github.com/user-attachments/assets/2e7defb0-abe5-46a7-908b-062d08e1fcdc" />
+
 
 
 ## RESULT:
